@@ -814,18 +814,6 @@ xloadcols(void)
 			else
 				die("could not allocate color %d\n", i);
 		}
-<<<<<<<
-=======
-
-	/* set alpha value of bg color */
-	if (opt_alpha)
-		alpha = strtof(opt_alpha, NULL);
-	dc.col[defaultbg].color.alpha = (unsigned short)(0xffff * alpha);
-	dc.col[defaultbg].pixel &= 0x00FFFFFF;
-	dc.col[defaultbg].pixel |= (unsigned char)(0xff * alpha) << 24;
-	loaded = 1;
-}
->>>>>>>
 
 	/* set alpha value of bg color */
 	if (opt_alpha)
@@ -1147,23 +1135,11 @@ xicdestroy(XIC xim, XPointer client, XPointer call)
 	return 1;
 }
 
-<<<<<<<
 void
 xinit(int cols, int rows)
 {
 	XGCValues gcvalues;
 	Cursor cursor;
-	Window parent;
-	pid_t thispid = getpid();
-	XColor xmousefg, xmousebg;
-	XWindowAttributes attr;
-	XVisualInfo vis;
-
-	if (!(xw.dpy = XOpenDisplay(NULL)))
-		die("can't open display\n");
-	xw.scr = XDefaultScreen(xw.dpy);
-
-=======
 	Window parent;
 	pid_t thispid = getpid();
 	XColor xmousefg, xmousebg;
@@ -1187,7 +1163,6 @@ xinit(int cols, int rows)
 
 	/* font */
 	if (!FcInit())
->>>>>>>
 	if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0)))) {
 		parent = XRootWindow(xw.dpy, xw.scr);
 		xw.depth = 32;
@@ -1213,7 +1188,6 @@ xinit(int cols, int rows)
 	/* adjust fixed window geometry */
 	win.w = 2 * borderpx + cols * win.cw;
 	win.h = 2 * borderpx + rows * win.ch;
-<<<<<<<
 	if (xw.gm & XNegative)
 		xw.l += DisplayWidth(xw.dpy, xw.scr) - win.w - 2;
 	if (xw.gm & YNegative)
@@ -1225,8 +1199,6 @@ xinit(int cols, int rows)
 	xw.attrs.bit_gravity = NorthWestGravity;
 	xw.attrs.event_mask = FocusChangeMask | KeyPressMask | KeyReleaseMask
 		| ExposureMask | VisibilityChangeMask | StructureNotifyMask
-=======
->>>>>>>
 		| ButtonMotionMask | ButtonPressMask | ButtonReleaseMask;
 	xw.attrs.colormap = xw.cmap;
 
@@ -2095,9 +2067,6 @@ main(int argc, char *argv[])
 	ARGBEGIN {
 	case 'a':
 		allowaltscreen = 0;
-		break;
-	case 'A':
-		opt_alpha = EARGF(usage());
 		break;
 	case 'A':
 		opt_alpha = EARGF(usage());
